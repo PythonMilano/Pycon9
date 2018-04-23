@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/akiross.css">
+		<link rel="stylesheet" href="css/zenburn.css">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> 
+		<style>
+			span.small {
+				font-size: 80%;
+			}
+			.reveal h1 {
+				text-transform: none;
+				font-family: 'Lobster', cursive;
+				color: #FD51D3;
+				text-shadow: #860d68 5px 5px;
+			}
+			.reveal h2 {
+				color: #3DFFD2;
+			}
+			.ereveal pre code {
+				background-color: #191919;
+			}
+			.author div.license {
+				text-align: right;
+				font-size: 20%;
+			}
+			.author {
+				position: relative;
+				top: 50px;
+			}
+			.author>h1, .author>h2 {
+				font-family: sans-serif;
+				font-weight: bold;
+				text-shadow: none;
+				text-align: right;
+				text-transform: none;
+			}
+			.author>h1 {
+				font-size: 34pt;
+				color: #3DFFD2;
+				margin: 0px;
+			}
+			.author>h2 {
+				font-size: 12pt;
+				color: white;
+			}
+			.author>h2>b {
+				font-size: 13pt;
+			}
+
+			.img50 img {
+				width: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+<section>
+<section>
+	<h1>Una Zuppa di Python</h1>
+	<h5>Qualche ricetta per programmare con gusto</h5>
+
+	<div class='author'>
+		<h1>Alessandro Re</h1>
+		<h2><b>C</b>hief <b>O</b>fficier of <b>S</b>ymmetrical <b>O</b>perations</h2>
+		<div class='license'>
+			<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Una Zuppa di Python</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/PythonMilano/Pycon9/una-zuppa-di-python" property="cc:attributionName" rel="cc:attributionURL">Alessandro Re</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+		</div>
+	</div>
+</section>
+<section data-markdown><script type="text/template">
+## Togliamoci 'sto sassolino
+
+### Disclaimer
+
+Non so come sia, ma ho usato Python per scopi migliori.
+</script></section>
+<section data-markdown><script type="text/template">
+### Ingredienti
+
+ - Pitone di piccole dimensioni
+ - Verdure (1 patata, 1 carota, fagiolini, mais)
+ - Spezie (curcuma, coriandolo, cumino macinato, pepe, zenzero)
+</script></section>
+<section data-markdown><script type="text/template">
+### Preparazione
+
+Tenendolo saldamente fermo, tagliare la testa al pitone. Scottarlo in acqua bollente per pochi
+istanti per facilitare la rimozione della pelle. Pulire la carne sotto acqua corrente rimuovendo
+le interiora. Tagliare il pitone a pezzetti e farlo cuocere lentamente in poca acqua per 5-6 ore
+per ottenere una carne molto tenera. Quando la carne è cotta, aggiungere le verdure e proseguire 
+la cottura. Aggiungere le spezie, mescolare e completare la cottura per altri 10 minuti.
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+### Piccola nota
+
+ - Non serve fare foto alle slide
+ - Condividerò le slide (ripulite) su slack
+   - slack.pycon.it
+   - che verranno caricate su github.com/PythonMilano
+</script></section>
+<section data-markdown><script type="text/template">
+### Cosa aspettarvi dal talk
+
+ - Per neofiti non estranei alla programmazione
+   - Ma possiamo parlarne...
+ - Mostra il modo "Pythonico" di fare certe cose
+ - Se non capite una cosa, prendete appunti
+   - Poi sperimentate e leggete la docs
+ - Se sapete già, spero troviate nuovi spunti
+ - Linux, MacOSX o Windows Subsystem for Linux
+ - $ → sistema, >>> → Python
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 1
+
+Dato un file con un nome per riga, trovarne i duplicati.
+</script></section>
+<section data-markdown><script type="text/template">
+## Soluzione 1/2: lettura
+### Seguendo l'intuito
+
+```python
+# Apro il file
+file_dati = open('ilfile.txt')
+
+# In un ciclo che continua fino alla fine
+while True:
+	riga = file_dati.readline()  # Leggo una riga
+	if riga == '':
+		break  # Riga vuota = file finito
+	else:
+		print(line)
+
+# Chiudo il file
+file_dati.close()
+```
+
+Va bene così o ci sono problemi?
+</script></section>
+<section data-markdown><script type="text/template">
+## Una soluzione migliore
+
+```python
+# Uso un context manager!
+with open('ilfile.txt') as file_dati:
+	# Iterazione sul file!!
+	for riga in file_dati:
+		print(line)  # (strip)
+```
+1. Apertura e chiusura sono gestite assieme
+2. La lettura delle righe è in automatico
+3. Nessuna condizione esplicita di terminazione
+
+```python
+with entratore_uscitore [as nome]:
+	codice_in_contesto
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Soluzione 2/2: duplicati
+
+Uso un dizionario:
+
+```python
+righe_viste = dict()
+num_riga = 0
+for riga in file_dati:
+	num_riga += 1  # Parte da 1
+	if riga in righe_viste:  # È una chiave?
+		print('Duplicato alla riga', num_riga)
+	else:
+		righe_viste[riga] = True
+```
+
+Ci piace così?
+</script></section>
+<section data-markdown><script type="text/template">
+## Migliorie
+
+1. Dizionario con vero/falso → Insieme
+2. Tener traccia di qualcosa già visto → Insieme
+3. `enumerate()` conta elementi di una sequenza
+
+```python
+righe_viste = set()
+for num_riga, riga in enumerate(file_dati, 1):
+	if riga in righe_viste:
+		print('Duplicato alla riga', num_riga)
+	else:
+		righe_viste.add(riga)
+```
+
+Insiemi: si possono unire, intersecare, sottrarre, etc
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 2
+
+Dato un file con un nome per riga, contare quante volte appare ogni nome
+</script></section>
+<section data-markdown><script type="text/template">
+## Soluzione
+
+Simile a prima, ma uso un dizionario per contare
+
+```python
+n_righe = dict()
+for riga in file_dati:
+    if riga not in n_righe:
+	    n_righe[riga] = 1
+	else:
+		n_righe[riga] += 1
+```
+
+Ci piace?
+</script></section>
+<section data-markdown><script type="text/template">
+## Meglio, così?
+
+```python
+    n_righe = dict()
+	for riga in file_dati:
+		n_righe[riga] = n_righe.get(riga, 0) + 1
+```
+
+`dict.get(key, default)`
+> se key non c'é, usa il default (che ha None come default)
+</script></section>
+<section data-markdown><script type="text/template">
+## Meglio questo!
+
+```python
+from collections import defaultdict
+
+n_righe = defaultdict(int)
+for riga in file_dati:
+	n_righe[riga] += 1  # esegue n_righe[riga] = int()
+	                    # se necessario
+```
+
+`defaultdict(func)`
+> quando un elemento manca, lo costruisce usando func prima di restituirlo
+</script></section>
+<section data-markdown><script type="text/template">
+## Top proprio
+
+```python
+from collections import Counter
+
+n_righe = Counter()
+for riga in file_dati:
+    n_righe[riga] += 1
+```
+...anzi...
+```python
+n_righe = Counter(file_dati)  # Itera sul file
+
+print(n_righe.most_common())  # Comode :)
+```
+
+E potete anche sommarli e sottrarli!
+
+```python
+print(Counter('ciao') - Counter('cosa')) # {'i': 1}
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 3
+
+Dati due file, nomi e telefoni, creare un dizionario nome → numeri
+
+Una persona può avere più numeri!
+</script></section>
+<section data-markdown><script type="text/template">
+## Soluzione
+
+Leggiamo tutti i nomi e i numeri
+
+```python
+with open('filenomi.txt') as file_nomi:
+	with open('filenumeri.txt') as file_numeri:
+		nomi = list(file_nomi)
+		numeri = list(file_numeri)
+```
+
+Mettiamoli in un dizionario
+
+```python
+rubrica = dict()
+for i in range(min(len(nomi), len(numeri))):  # len(lista)
+	nome, numero = nomi[i], numeri[i]  # N.B.
+	rubrica[nome] = rubrica.get(nome, []) + [numero]
+	# [a, b, c] + [d] == [a, b, c, d]
+```
+
+Ok, non è male, no?
+</script></section>
+<section data-markdown><script type="text/template">
+## Sistemiamo il dizionario
+
+`defaultdict` sarebbe stato meglio, ma in questo caso usiamo `dict.setdefault`:
+
+```python
+for i in range(min(len(nomi), len(numeri))):
+    nome, numero = nomi[i], numeri[i]
+	rubrica.setdefault(nome, []).append(numero)
+```
+
+Ora è tutto a posto!
+</script></section>
+<section data-markdown><script type="text/template">
+## Facilitare la lettura
+
+Ok, ammetto che
+
+```python
+for i in range(min(len(nomi), len(numeri))):
+    nome, numero = nomi[i], numeri[i]
+```
+
+è abbastanza brutto e illeggibile. Possiamo fare di meglio?
+</script></section>
+<section data-markdown><script type="text/template">
+## Sistemiamo in una lampo!
+
+Per fortuna, in Python possiamo fare di meglio
+
+    for nome, numero in zip(nomi, numeri):
+	    pass
+
+`zip(*iteratori)`
+> prende un **qualunque** numero di sequenze e ritorna gli i-esmini elementi in una tupla, finendo quando finisce il primo iteratore.
+</script></section>
+<section data-markdown><script type="text/template">
+## Doppio vantaggio
+
+Cosa succede se abbiamo un mucchio di dati?
+
+```python
+with open('filenomi.txt') as file_nomi:
+	with open('filenumeri.txt') as file_numeri:
+		nomi = list(file_nomi)
+		numeri = list(file_numeri)
+
+rubrica = dict()
+for nome, numero in zip(nomi, numeri):
+	rubrica.setdefault(nome, []).append(numero)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Benvenuti iteratori
+
+La lettura dei file può avvenire una riga alla volta, possiamo fare così;
+
+```python
+rubrica = dict()
+with open('filenomi.txt') as file_nomi:
+	with open('filenumeri.txt') as file_numeri:
+		for nome, numero in zip(file_nomi, file_numeri):
+			rubrica.setdefault(nome, []).append(numero)
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 4
+
+Hai un file da 1TB con 1 documento per riga da 1GB.
+
+Si vogliono filtrare le parole in ogni riga in base ad un vocabolario
+prestabilito, ritornandole in ordine alfabetico.
+</script></section>
+<section data-markdown><script type="text/template">
+## Esempio
+
+dato il seguente
+
+```python
+riga = "Perché dimentico tutte le lezioni dell'università"
+       "ma ricordo il 100% delle battute dei Simpsons?"
+```
+
+viene trasformato in
+
+```python
+['battuta', 'dimenticare', 'lezione', 'ricordare',
+ 'Simpsons', 'università']
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Separare le parole
+
+Usiamo `str.split()` per separare una stringa in base agli spazi e mettiamole
+in una lista.
+
+```python
+filtrate = []
+for parola in riga.split():
+	if parola in vocabolario:
+		filtrate.append(parola)
+```
+
+Direi che è Ok!
+</script></section>
+<section data-markdown><script type="text/template">
+## Separare le parole
+##### Tenendo conto della punteggiatura
+
+Decido di non usare una regex per risolvere il problema¹.
+
+Decido quindi di iterare su ogni singola lettera e considerare "parole" solo
+quelle composte da caratteri alfabetici.
+
+<span class='small'>¹) Anche se &nbsp;`import re`&nbsp; mi suona davvero elegante e familiare, per qualche motivo.</span>
+</script></section>
+<section data-markdown><script type="text/template">
+## Una lista di parole
+
+```python
+def parole(stringa):
+	lista_parole = []
+	parola = ''
+	for l in stringa:
+		if l.isalpha():
+			parola = parola + l
+		elif parola:
+			lista_parole.append(parola)
+			parola = ''
+	if parola:
+		lista_parole.append(parola)
+	return lista_parole
+```
+
+Funziona, c'ho i test!!1!
+
+Ma è un po' bruttino...
+
+</script></section>
+<section data-markdown><script type="text/template">
+## In meno righe
+
+Dovendo iterare su delle sequenze, itertools ci può essere utile.
+
+```python
+from itertools import groupby
+
+def parole(stringa):
+	"""Ritorna una lista di parole nella stringa."""
+	lista_parole = []
+	for is_alf, gruppo in groupby(stringa, key=str.isalpha):
+	    if is_alf:
+		    lista_parole.append(''.join(gruppo))
+	return lista_parole
+```
+
+Chiaro, no?
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+## Iteratori in breve
+
+`groupby` non funziona solo su stringhe, ma come fa?
+
+```python
+>>> s = 'sequenza'
+>>> i = iter(s)
+>>> i
+<str_iterator object at 0x133713371337>
+>>> next(i)
+'s'
+>>> next(i)
+'e'
+...
+>>> next(i)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## For loop in breve
+
+```python
+for c in 'sequenza':
+	print(c)
+```
+
+è sostanzialmente equivalente a questo:
+
+```python
+i = iter('sequenza')  # Iteratore
+while True:
+	try:
+		c = next(i)  # Prossimo elemento
+		print(c)
+	except StopIteration:
+		break  # Esci dal ciclo
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Il ruolo degli iteratori
+
+Permettono di scorrere tutti gli elementi di una struttura
+dati **indipendentemente** da com'è fatta.
+
+```python
+iter(stringa)  # Itera i caratteri
+iter(lista)  # Itera gli elementi
+iter(insieme)  # Itera gli elementi
+iter(dizionari)  # Itera le chiavi
+iter(tua_struttura_dati)  # Non è magia: Iterator Protocol
+```
+
+Molte funzioni ricevono un iteratore o un **iterabile**:
+
+```python
+list('sequenza')  # ['s', 'e', 'q', 'u', 'e', 'n', 'z', 'a']
+list(iter('sequenza'))  # Come sopra
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 4.1
+
+Ok, abbiamo una funzione che restituisce delle parole...
+
+Ma le stringhe sono di 1GB l'una, quindi avremo davvero tante parole!!
+</script></section>
+<section data-markdown><script type="text/template">
+## Generators to the rescue
+
+**Simile** ad un iteratore in questo senso:
+
+1. Lo crei
+2. Lo chiami per ottenere il prossimo dato
+3. Quando finisce alza un'eccezione
+
+Differenze:
+
+1. il dato lo **crea** ogni volta che viene chiamato
+2. Non c'é (necessariamente) una struttura dati sottostante
+
+</script></section>
+<section data-markdown><script type="text/template">
+## Definizione
+
+Un generatore (funzione generatrice) è una funzione che usa la keyword `yield`:
+
+```python
+def fibonacci(n):
+	n1, n2 = 0, 1
+    for i in range(n):
+		yield n1
+		n1, n2 = n2, n1+n2
+```
+
+E si può usare così:
+
+```python
+for n in fibonacci(3):
+    print(n)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Esploriamolo un po'...
+
+Il generatore non ritona una sequenza, ma un iterator
+
+```python
+>>> g = fibonacci(3)
+>>> g
+<generator object fibonacci at 0x3133780023>
+>>> next(g)
+0
+>>> next(g)
+1
+...
+StopIteration
+```
+
+Si "consuma" come gli iteratori!
+</script></section>
+<section data-markdown><script type="text/template">
+## yield sospende l'esecuzione
+
+È un "return con memoria"
+
+```python
+def quadrati(n):
+    for i in range(1, n+1):
+	    print('Produco', i**2)
+		yield i**2
+
+>>> g = quadrati(3)
+>>> _ = next(g)
+Produco 1
+>>> _ = next(g)
+Produco 4
+>>> _ = next(g)
+Produco 9
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Generatore di parole
+
+Sistemiamo la funzione che ritorna le parole per generane una alla volta
+
+```python
+from itertools import groupby
+
+def parole(stringa):
+	"""Genera una lista di parole nella stringa."""
+	for is_alf, gruppo in groupby(stringa, key=str.isalpha):
+	    if is_alf:
+		    yield ''.join(gruppo)
+
+sorted(parole(stringa))  # Ritorna una lista
+```
+Adesso il problema è solo `stringa`...
+</script></section>
+<section data-markdown class='img50'><script type="text/template">
+### ''.join(gruppo) -vs- str(gruppo)
+
+Rappresentazione in stringa di un gruppo (di groupby)
+
+    <itertools._grouper object at 0xf00b00f00b00>
+
+È necessario iterare il gruppo per ottenere le singole lettere
+ed unirle in una stringa.
+
+    assert 'XX'.join(['a', 'b', 'c']) == 'aXXbXXc'
+	assert ''.join(['a', 'b', 'c']) == 'abc'
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema 5
+
+Dato un file con un elenco di spese, vogliamo calcolare il totale e dividere
+per il numero di rate che andremo a pagare.
+</script></section>
+<section data-markdown><script type="text/template">
+## Facilissimo!!!1!
+
+```python
+totale = 0
+num_rate = 3
+with open('spese.txt') as file_spese:
+    for riga in file_spese:
+		totale += float(riga.strip())
+print('Ogni rata sarà di', totale / num_rate, 'euro')
+```
+
+Piece of cake.
+</script></section>
+<section data-markdown><script type="text/template">
+## Ciò che mi perplime
+
+Non fate affidamento su questo codice per molte transazioni.
+
+ - Problemi di overflow (int vs float)
+ - Problemi di precisione
+</script></section>
+<section data-markdown><script type="text/template">
+## Decimal
+
+Rappresentazione precisa di un numero:
+
+```python
+>>> from decimal import Decimal as D
+>>> D('3.14')
+Decimal('3.14')
+>>> D(3.14)
+Decimal('3.14000000000000012434497875801753252744674682')
+```
+Può quasi sostituire un normale numero float
+
+```python
+>>> D('3.14') + 1
+Decimal('4.14')
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Fraction
+
+Io preferisco usare le frazioni:
+
+```python
+>>> from fractions import Fraction as F
+>>> F('12/5')
+Fraction(12, 5)
+>>> F('3.14')
+Fraction(157, 50)
+>>> F(3.14)
+Fraction(7070651414971679, 2251799813685248)
+>>> float(F(1, 3))
+0.3333333333333333
+```
+
+A volte è più conveniente di Decimal (e.g. probabilità)
+</script></section>
+<section data-markdown><script type="text/template">
+## Altrettanto facile, ma più sicuro
+
+```python
+from fractions import Fraction
+totale = Fraction(0)
+num_rate = 3
+with open('spese.txt') as file_spese:
+    for riga in file_spese:
+		totale += Fraction(riga.strip())
+print('Ogni rata sarà di', totale / num_rate, 'euro')
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Un trucchetto
+
+A volte potrebbe capitarvi di dover dividere una quantità e di tenere il resto.
+
+Python ha due opzioni molto utili in casi simili:
+
+```python
+>>> 7 % 3  # Resto (modulo)
+1
+>>> 7 // 3  # floor division
+2
+>>> divmod(7, 3) # Divisione intera e resto (modulo)
+2, 1
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema N
+
+Scrivo il codice → trovo un bug → sistemo il bug.
+
+Cambio il codice → ritrovo il bug.
+</script></section>
+<section data-markdown><script type="text/template">
+## Una strategia
+
+La cosa migliore da fare in ~~questi casi~~ _generale_ è
+
+**scrivere dei test**, ovvero
+> codice che verifica che altro codice faccia quello che ci si aspetta che faccia.
+
+(Segue: una micro-introduzione al testing)
+</script></section>
+<section data-markdown><script type="text/template">
+## In pratica
+
+Quando scrivete un codice che fa qualcosa
+
+```python
+def calcola(a, op, b):
+    if op == '+':
+		return a + b
+	if op == '-':
+		return a - b
+```
+
+scrivete anche del codice di test
+
+```python
+def test_calcola():
+	assert calcola(1, '+', 2) == 3  # Conoscete assert?
+	assert calcola(1, '-', 2) == -1
+	assert calcola(0, '*', 5) == 0  # TODO
+```
+
+I test definiscono il comportamento desiderato.
+</script></section>
+<section data-markdown><script type="text/template">
+## Test automatizzati
+
+Ovviamente, quel codice di test bisogna eseguirlo in qualche modo.
+
+Esistono strumenti per farlo in modo automatico.
+
+Ad esempio, **pytest** (pytest.org) è comodissimo:
+
+```bash
+$ pytest
+...
+   def test_calcola():
+       assert calcola(1, '+', 2) == 3
+       assert calcola(1, '-', 2) == -1
+>      assert calcola(0, '*', 5) == 0
+E      assert None == 0
+E       + where None = calcola(0, '*', 5)
+calcolatrice.py:11: AssertionError
+=============== 1 failed in 0.01 seconds =================
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Scrivi test per il tuo codice
+
+In generale, volete testare solo le cose che scrivete, non quelle che usate.
+
+```python
+import statistics
+def calcola(a, op, b):
+    if op == '+':
+		return a + b
+	if op == '-':
+		return a - b
+	if op == 'media':
+	    return statistics.mean([a, b])
+```
+
+Usate dei mock (oggetti fantoccio) per simulare gli elementi esterni.
+</script></section>
+<section>
+	<div>Scrivere i test non è un esercizio di stile: fatelo bene!</div>
+</section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Spezie varie
+
+><Inserire qui battuta sull'erba che aggiunge sapore alla vita>
+</script></section>
+<section data-markdown><script type="text/template">
+## f-strings
+
+Una buona ragione per passare a Python 3.6
+
+```python
+n = 100
+s1 = str(n-1) + ' scimmie saltavano sul letto'  # Brutto!
+s2 = '{} scimmie saltavano sul letto'.format(n-2)  # Meh...
+s3 = f'{n-3} scimmie saltavano sul letto'  # Da Python 3.6
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Assegnamento
+
+Sapevate che si possono assegnare più cose assieme?
+
+```python
+a, b = 1, 2
+a, b = b, a  # Swap
+
+a, b, c = (1, 2, 3)
+
+def prova():
+    return [1, 2, 3]
+
+x, y, z = prova()
+
+i, *rest = range(40) # i = 0, rest = [1, ... 39]
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Comprehensions
+
+Forme compatte per creare "one liners" di **insiemi** e **liste**
+
+```python
+parola = 'indipendenza'
+
+insieme = set()
+for l in parola:
+    insieme.add(l.upper())
+insieme = {l.upper() for l in parola}
+
+lista = list()
+for l in insieme:
+	lista.append(l.lower())
+lista = [l.lower() for l in insieme]
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Comprehensions
+
+... Ma anche di **dizionari** e **generatori**:
+
+```python
+diz = dict()
+for l in lista:
+	diz[l] = parola.count(l)
+diz = {l: parola.count(l) for l in lista}
+
+def generatore(diz):
+	for l, n in diz.items():  # Items, non chiavi
+		yield (l.upper(), n+1)
+generatore = ((l.upper(), n+1) for l, n in diz.items())
+```
+
+Generatore come argomento di funzione:
+
+```python
+sum(parola.count(l) for l in insieme)  # Numero lettere
+n_righe = Counter(riga for riga in file_dati)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## iter() può tornare utile
+
+`iter(funzione, sentinella)` può tornarvi utile in alcune occasioni:
+
+```python
+from random import randint
+
+def lancia():
+	"""Lancia un dado a 6 facce."""
+	return randint(1, 6)
+
+# Lancia un dado finché non esce 6 (escluso)
+sequenza = list(iter(lancia, 6))
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Comparare oggetti
+
+In python ci sono `is` e `==`, ma che differenza c'é?
+
+```python
+if x is None:  # da preferire per None
+	pass
+assert None == None and None is None
+
+assert 'ciao' is 'ciao'
+bufo = b'ciao'.decode()
+assert bufo == 'ciao'
+assert bufo is not 'ciao'
+
+assert 2**8 == 2**8
+assert 2**8 is 2**8
+
+assert 2**9 == 2**9
+assert 2**9 is not 2**9  # In CPython
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Operatori di confronto
+
+Sapevate che in Python si può fare questo?
+
+`assert 1 < 2 < 3`
+
+oppure
+
+`assert 1 != 2 == 2`
+</script></section>
+<section data-markdown><script type="text/template">
+## Operatori di allucinazioni?
+
+E sapevate che quindi si può fare questo?
+
+`assert 1 == 1 is not True`
+
+Oppure questo?
+
+`assert False == False in [False]`
+</script></section>
+<section data-markdown><script type="text/template">
+## Parametri variabili
+
+```python
+def moltiplica(*numeri):
+	num = 1
+	for n in numeri:
+		num *= n
+	return num
+moltiplica(1, 2, 3)
+
+def applica(*numeri, **opzioni):
+	if opzioni.get('sum', False):
+		return sum(numeri)
+	else:
+		return moltiplica(numeri)
+applica(3, 2, 1, sum=True)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Espansione di argomenti
+
+```python
+def somma(a, b, c):
+	return a + b + c
+
+numeri = [1, 3, 5]
+somma(numeri[0], numeri[1], numeri[2])
+somma(*numeri)
+
+def sottrai(a=1, b=2, c=3):
+	return a - b - c
+
+numeri = {'a': 3, 'b': 5}
+sottrai(**numeri)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## La simmetria di zip e *
+
+Zip è stato sviscerato, discusso e analizzato di già.
+Ma un suo risvolto vi stupirà, di me che son reietto è il tema prediletto:
+
+```python
+>>> x = list(zip([1, 2, 3], [9, 8, 7]))
+>>> x
+[(1, 9), (2, 8), (3, 7)]
+>>> list(zip(*x))
+[(1, 2, 3), (9, 8, 7)]
+```</script></section>
+</section>
+<!--
+<section data-markdown><script type="text/template">
+## map e filter
+
+```python
+elenco = [('ale', 32), ('abe', 63)]  # coppie nome-età
+```
+</script></section>
+-->
+<section data-markdown><script type="text/template">
+## Un nome per ogni cosa
+
+Nell'esempio precedente, ho usato una convenzione, tipo
+
+```python
+dato = (32, 'Ale', 'Milano', 32)  # WAT
+```
+
+Anziché affidarsi alle convenzioni, usiamo i nomi
+
+```python
+from collections import namedtuple
+
+utente = namedtuple('utente', 'age name city days_to_birthday')
+dato = utente(32, 'Ale', 'Milano', 32)
+print(dato.age, dato.days_to_birthday)
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Comparare stringhe
+
+```python
+assert 'Gauss'.lower() == 'gauss'  # Di solito si fa così...
+assert 'Gauß'.lower() != 'gauss'  # Non dovrebbe...
+assert 'Gauß'.casefold() == 'gauss'  # Giusto :)
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+# Troppa roba?
+## Non riuscite a digerire questa zuppa?
+</script></section>
+<section data-markdown><script type="text/template">
+## Vi consiglio dello zen-zero
+
+    >>> import this           
+    The Zen of Python, by Tim Peters                    
+</script></section>
+</section>
+<section>
+	<h1>Fine!</h1>
+</section>
+<section data-markdown><script type="text/template">
+## Note
+
+ - Slide state fatte con RevealJS, è la prima volta che lo uso, scusate.
+ - Ho tenuto conto solo di CPython, se siete amanti di PyPy o altre implementazioni scusatemi.
+ - Scusatemi anche se ho fatto errori (ditemelo, per favore!)
+ - Ma soprattutto, scusatemi per l'intera presentazione.
+</script></section>
+<section>
+<section data-markdown><script type="text/template">
+# Problema Zero
+
+>Uh, sul mio computer funzionava...
+</script></section>
+<section data-markdown><script type="text/template">
+## Docker
+
+ - Non c'entra direttamente con Python (è in Go).
+   - Molto comodo per sviluppare
+   - Vi fornisce una specie di computer virtuale
+
+ - "Eseguire" un'immagine docker è...
+   - Più o meno come avviare un nuovo PC
+   - Pulito, controllabile, riproducibile
+
+ - Usare una versione specifica di Python
+</script></section>
+<section data-markdown><script type="text/template">
+### Esempio
+
+Lanciare un interprete Python 3.6
+
+```bash
+$ docker run -it python:3.6
+```
+
+Lanciare un interprete Python 2.7
+
+```bash
+$ docker run -it python:2.7
+```
+
+Accesso ai dati della dir corrente (volume)
+
+```bash
+$ docker run -i -t --rm -v "$PWD:/zuppa" python:3.6
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Ambienti virtuali
+
+ - Un computer → Vari progetti
+ - Un progetto → Vari pacchetti (librerie)
+ - Un pacchetto → Varie versioni
+
+Come tenere tutto pulito?
+</script></section>
+<section data-markdown><script type="text/template">
+### Come usarli
+
+Create un ambiente ed attivatelo
+
+```bash
+$ python3 -m venv mio-ambiente
+$ source mio-ambiente/bin/activate
+```
+
+Usate python normalmente
+
+```bash
+(mio-ambiente)$ python3 programma.py
+```
+
+Disattivatelo quando avete finito
+
+```bash
+(mio-ambiente)$ deactivate
+```
+</script></section>
+<section data-markdown><script type="text/template">
+## Gestione dei pacchetti
+
+Ambiente virtuale o meno, i pacchetti vanno gestiti!
+
+PIP - Python Package Index
+
+```bash
+$ python3 -m pip install nome-pacchetto
+$ python3 -m pip install -U pacchetto-da-aggiornare
+$ python3 -m pip uninstall pacchetto-da-rimuovere
+```
+
+(Magari avete `pip` o `pip3` già sul sistema)
+</script></section>
+<section data-markdown><script type="text/template">
+## Esempio: facciamo la scienzia
+
+```
+          $ python3 -m venv scienzia
+          $ source scienzia/bin/activate
+(scienzia)$ python3 -m pip install numpy
+(scienzia)$ python3
+		>>> import numpy as np
+		>>> np.sum(np.arange(1, 50))
+        1225
+		>>> exit()
+(scienzia)$ deactivate
+          $ rm -rf scienzia
+```
+</script></section>
+</section>
+<section>
+<section data-markdown><script type="text/template">
+## Mocking
+
+```python
+from unittest.mock import MagicMock, patch
+
+def test_calcola_media():
+    with patch('calcolatrice.statistics.mean') as mean:
+		mean.return_value = 5  # Valore di ritorno
+		assert calcola(4, 'media', 6) == 5
+
+		# Oppure una funzione che ne determina gli effetti
+		mean.side_effect = lambda l: 0.5 * (l[0] + l[1])
+		assert calcola(4, 'media', 6) == 5
+		assert calcola(1, 'media', 5) == 3
+		assert calcola(0, 'media', 0) == 0
+```
+
+Gli oggetti `Mock` e `MagicMock` sono entità molto curiose, tanto semplici quanto stupefacenti.
+Il mio consiglio è di usarle e giocarci.
+</script></section>
+</section>
+			</div>
+		</div>
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/marked.js"></script>
+		<script src="js/markdown.js"></script>
+		<script src="js/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				slideNumber: 'c/t',
+				transition: 'none',
+				dependencies: [
+					{src: './js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				]
+			});
+		</script>
+	</body>
+</html>
