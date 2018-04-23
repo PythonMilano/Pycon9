@@ -4,7 +4,7 @@ Ok, it was great. The skype call to the Concordia Antartic Base last Sunday was 
 ## Friday
 
 ### (EN) Scaling your Data Infrastructure. Attendee: keobox.
-This was a colection of practices about Data Science projects.
+This was a collection of practices about Data Science projects.
 This was one of the few talk I followed in the Pydata Track, and to say the truth it was not so easy for me to follow, since I'm not in the field, unfortunately.
 #### Takeaways
 - Is possible to execute python code using Atom and [Hydrogen](https://atom.io/packages/hydrogen) as an alternative to use a Jupyter Notebook.
@@ -18,24 +18,24 @@ This was one of the few talk I followed in the Pydata Track, and to say the trut
 ### (EN) Unveiling the potential of graph databases with Python and Neo4j. Attendee: keobox.
 This was an interesting talk about Neo4J, a graph database.
 #### Takeaways
-- Neo4J, basically is a NoSql database, but it store a graph structure instead of keys,values.
+- Neo4J, basically is a NoSql database, but it stores a graph structure instead of keys,values.
 - It implements index free adjacency, so that graph navigation it's quick.
-- The DDL language is "cypher" this language describe what are the node fields and what are the relationships among nodes.
+- The DDL language is "cypher" this language describes what are the node fields and what are the relationships among nodes.
 - Neo4J is [ACID](https://en.wikipedia.org/wiki/ACID)
 - Neo4J has an official driver called [Bolt](https://neo4j.com/docs/api/python-driver/current/) that permits to connect and send "cypher" code to the server.
 - There're several non official projects: py2neo and pypher that wraps "cypher" with something more python like.
 - Bidirectional relationships must be inserted and modelled with two unidirectional relationships.
 
 ### (IT) Elastic by Examples. Attendee: keobox
-I would say that this presentation lack the examples, it was more an introduction to the elasticsearch stack, the interesting part was about use cases that elasticsearch can cope.
+I would say that this presentation lacks the examples, it was more an introduction to the elasticsearch stack, the interesting part was about use cases that elasticsearch can cope.
 #### Takeaways
 - There's new "Beats" data ingestor that is pluggable and lighter than logstash. Apart this I did not get the difference beetween the two.
 - The ES-Hadoop connector is now open source.
-- Official python clients to connect to an ES cluster: elastic-search.py, elasticsearch-dsl, django-elastic-search-dsl.
+- Official python clients to connect to an ES cluster are: elastic-search.py, elasticsearch-dsl, django-elastic-search-dsl.
 #### Elastic search use cases.
 - Web app search engine. This is the main purpose of ES.
 - Security Forensic Analysis. Is possible to do this with the help of the "Alerting tool" in XPACK, the ES commercial stack or with some opensource projects like [elastalert](https://github.com/Yelp/elastalert) developed by Yelp. Another project is [VulnWhisperer](https://github.com/austin-taylor/VulnWhisperer), but it's Python 2.
 - Graph visualization. This is XPACK only and is useful for "social" analysis.
 - Centralized Log Analysis.
 - GeoSearch and Security. This is in XPACK too.
-- Automatic Performance Analysis or APM. This is released for open source and supports Django, Flask and node in GA release and Java as Beta release. Beta... ah ah!
+- Automatic Performance Analysis or APM. This is released for open source and supports Django, Flask and Node in GA release and Java as Beta release. Beta... ah ah!
