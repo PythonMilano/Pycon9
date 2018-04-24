@@ -39,3 +39,13 @@ I would say that this presentation lacks the examples, it was more an introducti
 - Centralized Log Analysis.
 - GeoSearch and Security. This is in XPACK too.
 - Automatic Performance Analysis or APM. This is released for open source and supports Django, Flask and Node in GA release and Java as Beta release. Beta... ah ah!
+
+### (IT) Introduzione a Zerynth: Python per microcontrollori e applicazioni IoT. Attendee: keobox.
+This was a presentation about [Zerynth](https://www.zerynth.com/) an IoT platform that consists of an embeddable Python VM, like MicroPython, and a complete toolchain with SDK.
+
+### (IT) Monitora le performance della tua applicazione Python Flask con ElasticSearch e Kibana. Attendee: keobox
+This was an introduction, with code examples, about how to use the APM cababilities of the ES stack, given you have an ES cluster.
+#### Takeways
+- There's an APM server is an opensource project written in Go, this converts the performance information collected by APM agents into data to send to an ES cluster.
+- The APM agents, are open source too, these are libraries written in different languages used to send performance data to APM servers. These agents are available for Django, Flask and NodeJs. Java support is Beta.
+- For flask is possible to install with pip the elastic-apm-flask package.
