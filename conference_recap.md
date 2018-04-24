@@ -52,6 +52,6 @@ This was an introduction, with code examples, about how to use the APM cababilit
 
 ### (EN) Python and the automatic astromical photografy. Attendee: keobox
 We already seen this in PyMi in November 2017, but it was a pleasure to listen this again during the PyBeer!
-Showing this during the PyBeer was necessary since we need the dark, since this talk was again a big demo of AstroScheduler, the Python application that Nicola wrote to make his own astronomical observatoty automatic: this means the observatory is able to take pictures of Galaxies and other astronomical objects "alone", drive by a script. Great talk. The only issue was that the venue was too noisy and not all attendand where able to listen well.
+Showing this during the PyBeer was necessary since we need the dark, since this talk was again a big demo of AstroScheduler, the Python application that Nicola wrote to make his own astronomical observatoty automatic: this means the observatory is able to take pictures of Galaxies and other astronomical objects "alone", drive by a script. Great talk. The only issue was that the venue was too noisy and not all attendands were able to listen well.
 #### Takeaways
 - Everything is possible!
