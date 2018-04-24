@@ -67,7 +67,7 @@ Then we arrive at the core of the keynote: VIRGO is now part of a network of "in
 ### (EN) Testing Thousand of Python Projects Every Day. Attendee: keobox
 This keynote was about Openstack development process and tools used during the development.
 Openstack project is actually a collection of interrelated projects: Nova, Neutron etc. All these pieces have to work together.
-After a entertaining description about the Openstack community "federated" development process, the keynote drifted to describe [Zull](https://wiki.cisco.com/display/CTM/Setup+a+VM+from+scratch) a continuos intergration tool specifically designed to manage a project composed of many interrelated projects like Openstack is.
+After a entertaining description about the Openstack community "federated" development process, the keynote drifted to describe [Zull](https://docs.openstack.org/infra/zuul/) a continuos intergration tool specifically designed to manage a project composed of many interrelated projects like Openstack is.
 #### Takeaways
 - I Learned something about Project "Gating".
 - Zull use ansible for job configuration... Wow!
