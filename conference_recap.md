@@ -5,7 +5,7 @@ Ok, it was great. The skype call to the Concordia Antartic Base last Sunday was 
 
 ### (EN) Scaling your Data Infrastructure. Attendee: keobox.
 This was a collection of practices about Data Science projects.
-This was one of the few talk I followed in the Pydata Track, and to say the truth it was not so easy for me to follow, since I'm not in the field, unfortunately.
+This was one of the few talks I followed in the Pydata Track, and to say the truth it was not so easy for me to follow, since I'm not in the field, unfortunately.
 #### Takeaways
 - Is possible to execute python code using Atom and [Hydrogen](https://atom.io/packages/hydrogen) as an alternative to use a Jupyter Notebook.
 - Some issues about scaling when we are in presence of a lot of data were listed. Basically they are about how to storage a lot of data and how to compute them.
@@ -49,3 +49,9 @@ This was an introduction, with code examples, about how to use the APM cababilit
 - There's an APM server is an opensource project written in Go, this converts the performance information collected by APM agents into data to send to an ES cluster.
 - The APM agents, are open source too, these are libraries written in different languages used to send performance data to APM servers. These agents are available for Django, Flask and NodeJs. Java support is Beta.
 - For flask is possible to install with pip the elastic-apm-flask package.
+
+### (EN) Python and the automatic astromical photografy. Attendee: keobox
+We already seen this in PyMi in November 2017, but it was a pleasure to listen this again during the PyBeer!
+Showing this during the PyBeer was necessary since we need the dark, since this talk was again a big demo of AstroScheduler, the Python application that Nicola wrote to make his own astronomical observatoty automatic: this means the observatory is able to take pictures of Galaxies and other astronomical objects "alone", drive by a script. Great talk. The only issue was that the venue was too noisy and not all attendand where able to listen well.
+#### Takeaways
+- Everything is possible!
