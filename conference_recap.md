@@ -55,3 +55,19 @@ We already seen this in PyMi in November 2017, but it was a pleasure to listen t
 Showing this during the PyBeer was necessary since we need the dark, since this talk was again a big demo of AstroScheduler, the Python application that Nicola wrote to make his own astronomical observatoty automatic: this means the observatory is able to take pictures of Galaxies and other astronomical objects "alone", drive by a script. Great talk. The only issue was that the venue was too noisy and not all attendands were able to listen well.
 #### Takeaways
 - Everything is possible!
+
+## Saturday
+
+### (EN) Python, Gravitational Waves and the Dawn of Multimessenger Astrophysics. Attendee: keobox
+In this keynote we were updated about the state of the art in the gravitational waves detectors field: these are now the existent detectors LIGO, Extended LIGO and VIRGO.
+VIRGO is the european community detector.
+After a description about the detector charateristics, like laser power beetween the arms of the interferometer: 200 W (Wow!) we saw how Python is used in the project. I would say it's used a lot, and it was very interesting to listen.
+Then we arrive at the core of the keynote: VIRGO is now part of a network of "instruments" able to see and correlate big astrophysical events like gravitational waves or gamma ray bursts because now these events are seen by multiple detectors, so they can be used to enforce the validation of such events.
+
+### (EN) Testing Thousand of Python Projects Every Day. Attendee: keobox
+This keynote was about Openstack development process and tools used during the development.
+Openstack project is actually a collection of interrelated projects: Nova, Neutron etc. All these pieces have to work together.
+After a entertaining description about the Openstack community "federated" development process, the keynote drifted to describe [Zull](https://wiki.cisco.com/display/CTM/Setup+a+VM+from+scratch) a continuos intergration tool specifically designed to manage a project composed of many interrelated projects like Openstack is.
+#### Takeaways
+- I Learned something about Project "Gating".
+- Zull use ansible for job configuration... Wow!
