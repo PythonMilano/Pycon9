@@ -109,6 +109,7 @@ These issues are:
 - Authorization and Permissions, the same.
 - Is possible to create inefficient queries on purpose, that take a lot of time to execute, as a DOS attacks.
 - Is not easy to put in place a transparent cache system with GraphQL, but is possible to have in application caching using Data Loaders.
+
 Some generic advices to overcome the Cons were provided during the talk, but I have an advice in this case.
 Look at this [talk](https://www.youtube.com/watch?v=Q8Fhyd6EQYY) I saw at codemotion Milan, 2017.
 This is a guy who works at Yelp and he shares advices about some solutions to GraphQL Cons, the slide are [here](https://www.slideshare.net/Codemotion/tomer-elmalem-graphql-apis-rest-in-peace-codemotion-milan-2017).
