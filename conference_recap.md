@@ -70,4 +70,46 @@ Openstack project is actually a collection of interrelated projects: Nova, Neutr
 After a entertaining description about the Openstack community "federated" development process, the keynote drifted to describe [Zull](https://docs.openstack.org/infra/zuul/) a continuos intergration tool specifically designed to manage a project composed of many interrelated projects like Openstack is.
 #### Takeaways
 - I Learned something about Project "Gating".
-- Zull use ansible for job configuration... Wow!
+- Zull uses ansible for job configuration... Wow!
+
+### (EN) How to use Web Sockets in Python. Attendee: keobox
+This talk was about web sockets and how to deal with them w/ Python.
+#### Takeaways
+- Web Sockets are native Javascript stuff, use different protocol over port 80. No JS libraries are involved in this.
+- Web Sockets have their own use cases like multiplayer games, tracking systems or chats, are not intended like a HTTP replacement.
+- Web Sockets have cons: no caching possible, different error handling respect to HTTP, no HTTP states.
+In backend Python side Web Sockets are implemented by:
+- Twisted
+- tornado.websockets
+- Django channels: ASGI Asyncronous Server Gateway Interface, is a superset of WSGI.
+Some code examples were shared with the audience.
+
+### (EN) Writing and deploying serverless application w/ Python. Attendee: keobox.
+An introduction to AWS Lambdas with a (slide) walkthrough about how to put in place a Python Lambda.
+Then a brief introduction about [Zappa](https://www.zappa.io/).
+#### Takeaways
+- AWS Lambda now supports both Python 2 and Python 3.
+
+### (IT) GraphQL in Python. Attendee: keobox
+GraphQL is a Facebook's [specification](http://facebook.github.io/graphql/October2016/) that aims to resolve some issues using REST APIs.
+These issues are:
+- Avoid N+1 query problem when not all data of an endpoint are needed.
+- Avoid the existence of sligthly different REST APIs to request sligthly different things.
+- Often REST APIs return too much data respect what the client needs, is difficult to filter information.
+#### Takeaways
+- W/ GraphQL is easier to ask just what is needed.
+- Is an alternative to REST.
+- There's type enforcing.
+- The operation are: "query", "mutation" and "subscription".
+- Is possible to use Web Sockets as transport.
+- The "mutation" operation use a sigle POST /graphql endpoint, and this is not cache friendly.
+- Python is used in backend, the SW packages are graphene, graphene-django.
+#### GraphQL cons
+- Authentication is not in the specification.
+- Authorization and Permissions, the same.
+- Is possible to create inefficient queries on purpose, that take a lot of time to execute, as a DOS attacks.
+- Is not easy to put in place a transparent cache system with GraphQL, but is possible to have in application caching using Data Loaders.
+Some generic advices to overcome the Cons were provided during the talk, but I have an advice in this case.
+Look at this [talk](https://www.youtube.com/watch?v=Q8Fhyd6EQYY) I saw at codemotion Milan, 2017.
+This is a guy who works at Yelp and he shares advices about some solutions to GraphQL Cons, the slide are [here](https://www.slideshare.net/Codemotion/tomer-elmalem-graphql-apis-rest-in-peace-codemotion-milan-2017).
+As a final comment, what in the slides is called Spectre, now is called [Casper](https://github.com/Yelp/casper) and is the caching system used by Yelp.
