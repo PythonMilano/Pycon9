@@ -114,3 +114,20 @@ Some generic advices to overcome the Cons were provided during the talk, but I h
 Look at this [talk](https://www.youtube.com/watch?v=Q8Fhyd6EQYY) I saw at codemotion Milan, 2017.
 This is a guy who works at Yelp and he shares advices about some solutions to GraphQL Cons, the slide are [here](https://www.slideshare.net/Codemotion/tomer-elmalem-graphql-apis-rest-in-peace-codemotion-milan-2017).
 As a final comment, what in the slides is called Spectre, now is called [Casper](https://github.com/Yelp/casper) and is the caching system used by Yelp.
+
+### (EN) Predicting future states using Markov Chains. Attendee: keobox
+This was very hard to follow for me. What I take was just a refresher on Markov chains.
+
+### (IT) IoT con Python: si può fare! Da ESP8266 alla casa domotica. Attendee: keobox.
+This was an interesting talk about the use of Micro Python running on low cost boards named ESP8266 to provide a end to end solution for
+IoT all written in Python.
+#### Takeaways
+- There's a library called esptool available to manage the code deploying on the boards. Use 'pip3 install esptool'.
+- There's an application: "Home Assistant" written in Python. This is able to communicate over wireless using the MQTT protocol. Use 'pip3 install homeassistant'. This is typically the "Hub" application used to connect to ESP devices, and it can run on a raspeberry PI.
+
+### (IT) Google loves Python 2.0. Attendee: keobox.
+This is basically a good introduction about the Python APIs provided by Google applications like Gmail and Drive.
+
+### (IT) Una zuppa di Python. Attendee: keobox.
+The "dry run" at "Python Milano" was worthy. The presentation was really interesting and entertaining.
+In this talk some Python Language's pearls were presented to the audience.
